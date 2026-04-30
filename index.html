@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriRoots | منصة الثروة الحيوانية الذكية</title>
+  <meta name="description" content="AgriRoots - منصة رقمية متكاملة لربط المزارعين والأطباء البيطريين لرفع جودة الإنتاج الحيواني">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/landing.css">
+
+  <!-- QRCode Library for Market -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-text">Agri<span>Roots</span></div>
+    </a>
+    
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features" data-ar>المميزات</a><a href="#features" data-en>Features</a></li>
+      <li><a href="#ai-vet" data-ar>المساعد الذكي</a><a href="#ai-vet" data-en>AI Vet</a></li>
+      <li><a href="#sustainability" data-ar>الاستدامة</a><a href="#sustainability" data-en>Sustainability</a></li>
+      <li><a href="#market" data-ar>السوق</a><a href="#market" data-en>Market</a></li>
+      <li><a href="#pricing" data-ar>الأسعار</a><a href="#pricing" data-en>Pricing</a></li>
+      <li class="hide-desktop">
+        <a href="login.html" class="btn btn-primary btn-sm" data-ar>ابدأ مجاناً</a>
+        <a href="login.html" class="btn btn-primary btn-sm" data-en>Start Free</a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="lang-btn" onclick="toggleLang()">EN</button>
+      <a href="login.html" class="btn btn-primary hide-mobile" data-ar>ابدأ مجاناً</a>
+      <a href="login.html" class="btn btn-primary hide-mobile" data-en>Start Free</a>
+      <button class="menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container hero-container grid-2 items-center">
+      
+      <!-- Hero Content -->
+      <div class="hero-content reveal-right">
+        <div class="hero-badge">
+          <span data-ar>🚀 منصة الثروة الحيوانية الأولى عربياً</span>
+          <span data-en>🚀 First Arab Livestock Platform</span>
+        </div>
+        
+        <h1 data-ar>ادر مزرعتك بذكاء،<br>ابنِ مستقبلاً<br><span class="highlight">مستداماً</span></h1>
+        <h1 data-en>Manage Smart,<br>Build a <span class="highlight">Sustainable</span><br>Future</h1>
+        
+        <p class="hero-desc" data-ar>
+          منصة رقمية متكاملة تربط المزارعين بالأطباء البيطريين والجهات الرقابية والسوق — لرفع جودة الإنتاج، وحماية صحة المستهلك، ودعم الاستدامة البيئية.
+        </p>
+        <p class="hero-desc" data-en>
+          A comprehensive digital platform connecting farmers, veterinarians, regulators, and the market — to elevate production quality, protect consumer health, and support sustainability.
+        </p>
+
+        <div class="hero-actions">
+          <a href="login.html" class="btn btn-primary btn-lg">
+            <span data-ar>ابدأ مجاناً الآن 🌱</span>
+            <span data-en>Start Free Now 🌱</span>
+          </a>
+          <a href="#features" class="btn btn-ghost">
+            <span data-ar>استكشف المميزات ←</span>
+            <span data-en>Explore Features →</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visual (Floating Dashboard Card) -->
+      <div class="hero-visual reveal-left">
+        <div class="hero-dashboard float-slow">
+          <div class="floating-badge top">
+            ✅ <span data-ar>تم التطعيم بنجاح</span><span data-en>Vaccination Successful</span>
+          </div>
+          <div class="floating-badge bottom">
+            🚫 <span data-ar>فترة سحب نشطة</span><span data-en>Active Withdrawal</span>
+          </div>
+          
+          <div class="hero-dashboard-header">
+            <h4>📊 <span data-ar>لوحة التحكم — مزرعة الرياض</span><span data-en>Dashboard — Riyadh Farm</span></h4>
+            <span data-ar>اليوم</span><span data-en>Today</span>
+          </div>
+
+          <div class="dash-stat-grid">
+            <div class="dash-stat stat-card">
+              <div class="icon">🐄</div>
+              <div class="val">247</div>
+              <div class="lbl" data-ar>إجمالي المواشي</div><div class="lbl" data-en>Total Livestock</div>
+            </div>
+            <div class="dash-stat stat-card amber-bg">
+              <div class="icon">⚠️</div>
+              <div class="val">3</div>
+              <div class="lbl" data-ar>تنبيهات طارئة</div><div class="lbl" data-en>Critical Alerts</div>
+            </div>
+            <div class="dash-stat stat-card pink-bg">
+              <div class="icon">💊</div>
+              <div class="val">12</div>
+              <div class="lbl" data-ar>في فترة السحب</div><div class="lbl" data-en>In Withdrawal</div>
+            </div>
+            <div class="dash-stat stat-card gold-bg">
+              <div class="icon">🌿</div>
+              <div class="val">87</div>
+              <div class="lbl">Eco Score</div>
+            </div>
+          </div>
+
+          <div class="dash-alerts">
+            <div class="dash-alert amber">
+              🔔 <span data-ar>تطعيم الحمى القلاعية — خلال 5 أيام</span><span data-en>FMD Vaccination — in 5 days</span>
+            </div>
+            <div class="dash-alert red">
+              🚫 <span data-ar>البقرة# A047 — غير صالحة للذبح حالياً</span><span data-en>Cow# A047 — Not safe for slaughter</span>
+            </div>
+            <div class="dash-alert green">
+              ✅ <span data-ar>الدفعة الأخيرة — جاهزة للبيع (24 رأس)</span><span data-en>Last batch — Ready for sale (24 heads)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="container reveal">
+      <div class="stat-item">
+        <span class="stat-num" data-count="1250">0</span>
+        <span class="stat-desc" data-ar>حيوان مسجل</span><span class="stat-desc" data-en>Registered Animals</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="340">0</span>
+        <span class="stat-desc" data-ar>مزرعة نشطة</span><span class="stat-desc" data-en>Active Farms</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="89">0</span>
+        <span class="stat-desc" data-ar>طبيب بيطري</span><span class="stat-desc" data-en>Veterinarians</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="98">0</span>
+        <span class="stat-desc" data-ar>% معدل الرضا</span><span class="stat-desc" data-en>% Satisfaction</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section class="section features-section" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge" data-ar>جوهر المنصة</div><div class="section-badge" data-en>Core Platform</div>
+        <h2 data-ar>كل ما تحتاجه لإدارة مزرعتك</h2>
+        <h2 data-en>Everything you need to manage your farm</h2>
+        <p data-ar>نظام متكامل يغطي جميع جوانب إدارة الثروة الحيوانية بكفاءة عالية</p>
+        <p data-en>An integrated system covering all aspects of livestock management with high efficiency</p>
+      </div>
+
+      <div class="grid-3 stagger">
+        <!-- Feature 1 -->
+        <div class="feature-card reveal">
+          <span class="emoji">🐄</span>
+          <h3 data-ar>إدارة المواشي</h3><h3 data-en>Livestock Management</h3>
+          <p data-ar>ملف رقمي شامل لكل حيوان يضمن التتبع الدقيق وتسهيل الإدارة اليومية.</p>
+          <p data-en>A comprehensive digital profile for each animal ensuring precise tracking.</p>
+          <ul class="feature-list">
+            <li data-ar>تتبع المطاعيم والتنبيهات</li><li data-en>Vaccine tracking & alerts</li>
+            <li data-ar>تسجيل الأدوية وفترات السحب</li><li data-en>Medication & withdrawal periods</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card reveal">
+          <span class="emoji">🧠</span>
+          <h3 data-ar>التشخيص الذكي</h3><h3 data-en>Smart Diagnosis</h3>
+          <p data-ar>مساعد بيطري يعتمد على الذكاء الاصطناعي لتقديم تشخيص مبدئي فوري.</p>
+          <p data-en>An AI-powered veterinary assistant providing instant preliminary diagnosis.</p>
+          <ul class="feature-list">
+            <li data-ar>تحليل الأعراض والصور</li><li data-en>Symptoms & image analysis</li>
+            <li data-ar>ربط مع أطباء حقيقيين (Tele-vet)</li><li data-en>Connection with real vets</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card reveal">
+          <span class="emoji">🌱</span>
+          <h3 data-ar>الاستدامة البيئية</h3><h3 data-en>Sustainability</h3>
+          <p data-ar>أدوات لقياس وتحسين الأثر البيئي لمزرعتك لضمان مستقبل أفضل.</p>
+          <p data-en>Tools to measure and improve your farm's environmental impact.</p>
+          <ul class="feature-list">
+            <li data-ar>حساب استهلاك المياه</li><li data-en>Water consumption tracking</li>
+            <li data-ar>إدارة المخلفات وإعادة التدوير</li><li data-en>Waste management & recycling</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card reveal">
+          <span class="emoji">📊</span>
+          <h3 data-ar>السوق والشفافية</h3><h3 data-en>Market & Traceability</h3>
+          <p data-ar>سوق رقمي يعزز الثقة بين المزارع والمشتري من خلال بيانات موثقة.</p>
+          <p data-en>A digital marketplace boosting trust through verified data.</p>
+          <ul class="feature-list">
+            <li data-ar>رمز QR لكل حيوان ببياناته</li><li data-en>QR code for each animal</li>
+            <li data-ar>ضمان سلامة الغذاء للمشتري</li><li data-en>Food safety guarantee</li>
+          </ul>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card reveal">
+          <span class="emoji">🚨</span>
+          <h3 data-ar>الإنذار المبكر</h3><h3 data-en>Early Warning</h3>
+          <p data-ar>نظام رصد لانتشار الأمراض لحماية مزرعتك قبل وصول الخطر.</p>
+          <p data-en>Disease monitoring system to protect your farm proactively.</p>
+          <ul class="feature-list">
+            <li data-ar>خرائط انتشار الأمراض</li><li data-en>Disease spread maps</li>
+            <li data-ar>تنبيهات فورية للمناطق المجاورة</li><li data-en>Instant alerts for nearby areas</li>
+          </ul>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card reveal">
+          <span class="emoji">📚</span>
+          <h3 data-ar>التوعية والتعليم</h3><h3 data-en>Education Hub</h3>
+          <p data-ar>مكتبة غنية بالموارد الإرشادية لرفع كفاءة الإنتاج وتحسين الممارسات.</p>
+          <p data-en>Rich library of resources to improve production efficiency.</p>
+          <ul class="feature-list">
+            <li data-ar>فيديوهات وإرشادات عملية</li><li data-en>Videos & practical guides</li>
+            <li data-ar>دعم للمحتوى باللهجات المحلية</li><li data-en>Support for local dialects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Vet Section -->
+  <section class="section bg-earth" id="ai-vet">
+    <div class="container grid-2 items-center">
+      <div class="reveal-right">
+        <div class="section-badge tag-green" data-ar>الذكاء الاصطناعي</div><div class="section-badge tag-green" data-en>Artificial Intelligence</div>
+        <h2 class="text-white" data-ar>المساعد البيطري الذكي</h2>
+        <h2 class="text-white" data-en>Smart Vet Assistant</h2>
+        <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 32px;" data-ar>
+          لا داعي للانتظار. صف أعراض الحيوان للمساعد الذكي واحصل على تحليل فوري وتوجيهات أولية دقيقة.
+        </p>
+        <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 32px;" data-en>
+          No need to wait. Describe symptoms to the AI assistant and get instant analysis and accurate initial guidance.
+        </p>
+        
+        <div class="legal-disclaimer">
+          <strong>⚠️</strong>
+          <div>
+            <span data-ar>تنبيه قانوني: هذا التشخيص مبدئي فقط ولا يغني عن استشارة الطبيب البيطري. في الحالات الطارئة، يرجى التواصل مع طبيب مختص فوراً.</span>
+            <span data-en>Legal Notice: This diagnosis is preliminary and does not replace veterinary consultation. In emergencies, contact a vet immediately.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-left">
+        <div class="chat-container">
+          <div class="chat-header">
+            <div class="dot"></div>
+            <div>
+              <div style="font-weight: 700; font-size: 15px;" data-ar>المساعد البيطري</div>
+              <div style="font-weight: 700; font-size: 15px;" data-en>Vet Assistant</div>
+              <div style="font-size: 11px; color: var(--lime);" data-ar>متصل الآن</div>
+              <div style="font-size: 11px; color: var(--lime);" data-en>Online Now</div>
+            </div>
+          </div>
+          <div class="chat-messages" id="landingChatBox">
+            <div class="chat-msg bot fade-in" data-ar>مرحباً! أنا المساعد البيطري الذكي 🐄 كيف يمكنني مساعدة قطيعك اليوم؟</div>
+            <div class="chat-msg bot fade-in" data-en>Hello! I'm the AI Vet Assistant 🐄 How can I help your herd today?</div>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" id="landingChatInput" placeholder="اكتب الأعراض هنا..." data-placeholder-ar="اكتب الأعراض هنا..." data-placeholder-en="Type symptoms here..." onkeypress="if(event.key==='Enter') sendLandingChat()">
+            <button class="chat-send" onclick="sendLandingChat()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="section pricing-section" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-badge" data-ar>باقات الاشتراك</div><div class="section-badge" data-en>Subscription Plans</div>
+        <h2 data-ar>خطط تناسب حجم مزرعتك</h2>
+        <h2 data-en>Plans tailored for your farm</h2>
+        <p data-ar>اختر الباقة المناسبة للبدء في إدارة قطيعك بذكاء</p>
+        <p data-en>Choose the right plan to start managing your herd smartly</p>
+      </div>
+
+      <div class="pricing-grid stagger">
+        <!-- Plan 1 -->
+        <div class="price-card reveal">
+          <div class="plan-name" data-ar>أساسي</div><div class="plan-name" data-en>Basic</div>
+          <div class="plan-price" data-ar>مجاناً</div><div class="plan-price" data-en>Free</div>
+          <div class="plan-period" data-ar>للأبد</div><div class="plan-period" data-en>Forever</div>
+          <ul class="plan-features">
+            <li data-ar>إدارة حتى 50 رأس</li><li data-en>Manage up to 50 heads</li>
+            <li data-ar>تتبع التطعيمات الأساسية</li><li data-en>Basic vaccine tracking</li>
+            <li data-ar>مكتبة التوعية المجانية</li><li data-en>Free education library</li>
+          </ul>
+          <a href="login.html" class="plan-btn" data-ar>ابدأ الآن</a><a href="login.html" class="plan-btn" data-en>Start Now</a>
+        </div>
+
+        <!-- Plan 2 -->
+        <div class="price-card featured reveal">
+          <div class="popular-tag" data-ar>الأكثر شعبية</div><div class="popular-tag" data-en>Most Popular</div>
+          <div class="plan-name" data-ar>احترافي</div><div class="plan-name" data-en>Pro</div>
+          <div class="plan-price">199<span style="font-size:18px" data-ar> ريال</span><span style="font-size:18px" data-en> SAR</span></div>
+          <div class="plan-period" data-ar>شهرياً</div><div class="plan-period" data-en>Monthly</div>
+          <ul class="plan-features">
+            <li data-ar>إدارة حتى 500 رأس</li><li data-en>Manage up to 500 heads</li>
+            <li data-ar>التشخيص الذكي (AI Vet)</li><li data-en>AI Vet Diagnosis</li>
+            <li data-ar>الوصول للسوق وتوليد QR</li><li data-en>Market access & QR generation</li>
+            <li data-ar>تنبيهات فترات السحب</li><li data-en>Withdrawal period alerts</li>
+          </ul>
+          <a href="login.html" class="plan-btn" data-ar>جرب مجاناً لمدة 14 يوم</a><a href="login.html" class="plan-btn" data-en>Try 14 Days Free</a>
+        </div>
+
+        <!-- Plan 3 -->
+        <div class="price-card reveal">
+          <div class="plan-name" data-ar>مؤسسي</div><div class="plan-name" data-en>Enterprise</div>
+          <div class="plan-price" data-ar>تواصل معنا</div><div class="plan-price" data-en>Contact Us</div>
+          <div class="plan-period" data-ar>للمزارع الكبرى</div><div class="plan-period" data-en>For large farms</div>
+          <ul class="plan-features">
+            <li data-ar>عدد لا محدود من المواشي</li><li data-en>Unlimited livestock</li>
+            <li data-ar>مؤشرات الاستدامة المتقدمة</li><li data-en>Advanced eco metrics</li>
+            <li data-ar>ربط مع أنظمة ERP</li><li data-en>ERP systems integration</li>
+            <li data-ar>حسابات متعددة للموظفين</li><li data-en>Multi-user accounts</li>
+          </ul>
+          <a href="login.html" class="plan-btn" data-ar>طلب عرض سعر</a><a href="login.html" class="plan-btn" data-en>Request Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container reveal">
+      <h2 data-ar>مستعد للانتقال بمزرعتك إلى <span>المستقبل؟</span></h2>
+      <h2 data-en>Ready to take your farm to the <span>future?</span></h2>
+      <p data-ar>انضم إلى مئات المزارعين الذين يستخدمون AgriRoots لزيادة إنتاجيتهم وحماية قطيعهم.</p>
+      <p data-en>Join hundreds of farmers using AgriRoots to increase productivity and protect their herds.</p>
+      <div class="cta-actions">
+        <a href="login.html" class="btn btn-white btn-lg" data-ar>انشئ حسابك مجاناً</a>
+        <a href="login.html" class="btn btn-white btn-lg" data-en>Create Free Account</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#" class="nav-logo" style="margin-bottom: 16px;">
+            <div class="nav-logo-icon">🌿</div>
+            <div class="nav-logo-text" style="color: white;">Agri<span style="color: var(--lime);">Roots</span></div>
+          </a>
+          <p data-ar>منصة رقمية متكاملة لإدارة الثروة الحيوانية بذكاء واستدامة.</p>
+          <p data-en>A comprehensive digital platform for smart and sustainable livestock management.</p>
+        </div>
+        <div>
+          <h4 data-ar>روابط سريعة</h4><h4 data-en>Quick Links</h4>
+          <ul>
+            <li><a href="#features" data-ar>المميزات</a><a href="#features" data-en>Features</a></li>
+            <li><a href="#ai-vet" data-ar>المساعد الذكي</a><a href="#ai-vet" data-en>AI Vet</a></li>
+            <li><a href="#market" data-ar>السوق</a><a href="#market" data-en>Market</a></li>
+            <li><a href="#pricing" data-ar>الأسعار</a><a href="#pricing" data-en>Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-ar>الخدمات</h4><h4 data-en>Services</h4>
+          <ul>
+            <li><a href="#" data-ar>إدارة المواشي</a><a href="#" data-en>Livestock Management</a></li>
+            <li><a href="#" data-ar>استشارات بيطرية</a><a href="#" data-en>Vet Consultations</a></li>
+            <li><a href="#" data-ar>تقارير الاستدامة</a><a href="#" data-en>Sustainability Reports</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-ar>تواصل معنا</h4><h4 data-en>Contact</h4>
+          <ul>
+            <li><a href="#">support@agriroots.com</a></li>
+            <li><a href="#" dir="ltr">+966 50 000 0000</a></li>
+            <li><a href="#" data-ar>الرياض، المملكة العربية السعودية</a><a href="#" data-en>Riyadh, Saudi Arabia</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 AgriRoots — <span data-ar>جميع الحقوق محفوظة</span><span data-en>All rights reserved</span></div>
+        <div style="display: flex; gap: 16px;">
+          <a href="#" style="color: rgba(255,255,255,0.5);">Twitter</a>
+          <a href="#" style="color: rgba(255,255,255,0.5);">LinkedIn</a>
+          <a href="#" style="color: rgba(255,255,255,0.5);">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/landing.js"></script>
+  <script>
+    // Simple Chat Demo for Landing Page
+    function sendLandingChat() {
+      const input = document.getElementById('landingChatInput');
+      const box = document.getElementById('landingChatBox');
+      const msg = input.value.trim();
+      if(!msg) return;
+      
+      box.innerHTML += `<div class="chat-msg user fade-in">${msg}</div>`;
+      input.value = '';
+      
+      const typingId = 't-' + Date.now();
+      box.innerHTML += `<div class="chat-msg bot fade-in" id="${typingId}"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+      box.scrollTop = box.scrollHeight;
+      
+      setTimeout(() => {
+        const en = document.body.classList.contains('en');
+        let reply = en ? "I'm a demo assistant. To get real medical analysis for your livestock, please log in or create an account." : "أنا مساعد تجريبي. للحصول على تحليل طبي حقيقي لقطيعك، يرجى تسجيل الدخول أو إنشاء حساب.";
+        document.getElementById(typingId).outerHTML = `<div class="chat-msg bot fade-in">${reply}</div>`;
+        box.scrollTop = box.scrollHeight;
+      }, 1500);
+    }
+  </script>
+</body>
+</html>

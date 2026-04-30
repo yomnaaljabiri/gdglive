@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriRoots | لوحة التحكم</title>
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" defer></script>
+</head>
+<body>
+
+  <div class="dash-layout">
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="sidebar-logo">
+        <div class="icon">🌿</div>
+        <span>AgriRoots</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <button class="sidebar-link active" data-view="home">
+          <span class="link-icon">📊</span><span data-ar>لوحة التحكم</span><span data-en>Dashboard</span>
+        </button>
+        <button class="sidebar-link" data-view="livestock">
+          <span class="link-icon">🐄</span><span data-ar>المواشي</span><span data-en>Livestock</span>
+        </button>
+        <button class="sidebar-link" data-view="vaccines">
+          <span class="link-icon">💉</span><span data-ar>التطعيمات والأدوية</span><span data-en>Vaccines & Meds</span>
+        </button>
+        <button class="sidebar-link" data-view="market">
+          <span class="link-icon">🛒</span><span data-ar>السوق</span><span data-en>Marketplace</span>
+        </button>
+        <button class="sidebar-link" data-view="sustainability">
+          <span class="link-icon">🌱</span><span data-ar>الاستدامة</span><span data-en>Sustainability</span>
+        </button>
+        <button class="sidebar-link" data-view="aivet">
+          <span class="link-icon">🧠</span><span data-ar>المساعد الذكي</span><span data-en>AI Vet</span>
+        </button>
+        
+        <div class="sidebar-divider"></div>
+        
+        <button class="sidebar-link" data-view="alerts">
+          <span class="link-icon" style="position:relative">🚨<div class="notif-dot"></div></span>
+          <span data-ar>الإنذار المبكر</span><span data-en>Early Warnings</span>
+        </button>
+        <button class="sidebar-link">
+          <span class="link-icon">📚</span><span data-ar>مكتبة التوعية</span><span data-en>Education Hub</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="avatar">👨‍🌾</div>
+        <div class="info">
+          <div class="name user-name">محمد أحمد</div>
+          <div class="role user-farm">مزرعة الرياض</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dash-main">
+      <!-- Topbar -->
+      <header class="dash-topbar">
+        <div style="display:flex;align-items:center;gap:16px">
+          <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+          <div class="topbar-title">
+            <h2><span data-ar>لوحة التحكم</span><span data-en>Dashboard</span></h2>
+            <p><span data-ar>مرحباً بك، </span><span data-en>Welcome, </span><span class="user-name">محمد</span> 👋</p>
+          </div>
+        </div>
+        
+        <div class="topbar-actions">
+          <button class="lang-btn" onclick="toggleLang()">EN</button>
+          <button class="topbar-btn" title="Notifications">
+            🔔<div class="notif-dot"></div>
+          </button>
+          <button class="topbar-btn" onclick="logout()" title="Logout">
+            <span data-ar>🚪</span><span data-en>🚪</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="dash-content">
+        
+        <!-- VIEW: HOME (Dashboard) -->
+        <div class="dash-view active fade-in" id="view-home">
+          
+          <div class="dash-alerts" id="dashAlerts">
+            <!-- Alerts injected by JS -->
+          </div>
+
+          <div class="dash-stats">
+            <div class="stat-card">
+              <div class="icon">🐄</div>
+              <div class="stat-value stat-total">0</div>
+              <div class="stat-label" data-ar>إجمالي المواشي</div><div class="stat-label" data-en>Total Livestock</div>
+            </div>
+            <div class="stat-card amber-bg">
+              <div class="icon">⚠️</div>
+              <div class="stat-value stat-alerts">0</div>
+              <div class="stat-label" data-ar>تنبيهات طارئة</div><div class="stat-label" data-en>Critical Alerts</div>
+            </div>
+            <div class="stat-card pink-bg">
+              <div class="icon">💊</div>
+              <div class="stat-value stat-withdrawal">0</div>
+              <div class="stat-label" data-ar>في فترة السحب</div><div class="stat-label" data-en>In Withdrawal</div>
+            </div>
+            <div class="stat-card gold-bg">
+              <div class="icon">🌿</div>
+              <div class="stat-value stat-eco">0</div>
+              <div class="stat-label">Eco Score</div>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <div class="quick-action" onclick="openModal('addAnimalModal')">
+              <div class="qa-icon" style="background:#E8F5E0;color:#2D5A27">➕</div>
+              <div class="qa-text">
+                <h4 data-ar>إضافة حيوان جديد</h4><h4 data-en>Add New Animal</h4>
+                <p data-ar>تسجيل حيوان وميلاده</p><p data-en>Register animal and birth</p>
+              </div>
+            </div>
+            <div class="quick-action" onclick="document.querySelector('[data-view=\'vaccines\']').click()">
+              <div class="qa-icon" style="background:#FFF3E0;color:#E65100">💉</div>
+              <div class="qa-text">
+                <h4 data-ar>تسجيل تطعيم/دواء</h4><h4 data-en>Record Vaccine/Med</h4>
+                <p data-ar>تحديث السجل الطبي للقطيع</p><p data-en>Update medical records</p>
+              </div>
+            </div>
+            <div class="quick-action" onclick="document.querySelector('[data-view=\'aivet\']').click()">
+              <div class="qa-icon" style="background:#E3F2FD;color:#1565C0">🧠</div>
+              <div class="qa-text">
+                <h4 data-ar>استشارة المساعد الذكي</h4><h4 data-en>Consult AI Vet</h4>
+                <p data-ar>تشخيص مبدئي للأعراض</p><p data-en>Preliminary diagnosis</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <!-- Timeline widget -->
+            <div class="dash-section" style="margin-bottom:0">
+              <div class="dash-section-header">
+                <h3 data-ar>📅 جدول التطعيمات القادمة</h3><h3 data-en>📅 Upcoming Vaccinations</h3>
+              </div>
+              <div id="vaccTimeline">
+                <!-- Timeline injected by JS -->
+              </div>
+            </div>
+            
+            <!-- Map widget -->
+            <div class="dash-section" style="margin-bottom:0">
+              <div class="dash-section-header">
+                <h3 data-ar>🚨 خريطة الإنذار المبكر</h3><h3 data-en>🚨 Early Warning Map</h3>
+              </div>
+              <div class="map-container">
+                <div class="map-dot danger" style="top:30%;right:35%" data-tooltip="حمى قلاعية (3 حالات)"></div>
+                <div class="map-dot warn" style="top:55%;right:60%" data-tooltip="بروسيلا (اشتباه)"></div>
+                <div class="map-dot safe" style="top:65%;right:25%"></div>
+                <div class="map-dot safe" style="top:25%;right:70%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: LIVESTOCK -->
+        <div class="dash-view fade-in" id="view-livestock">
+          <!-- Main Categories View -->
+          <div id="livestockCategoriesView">
+            <div class="flex-between" style="margin-bottom:24px">
+              <div>
+                <h3 data-ar>أصناف المواشي (المزرعة كاملة)</h3><h3 data-en>Livestock Categories (Full Farm)</h3>
+                <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-ar>اختر الصنف لعرض السجلات والتفاصيل</p>
+                <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-en>Select category to view records and details</p>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openModal('addAnimalModal')">
+                <span data-ar>+ إضافة مواشي</span><span data-en>+ Add Livestock</span>
+              </button>
+            </div>
+            
+            <div class="grid-3" id="livestockCategoriesGrid">
+              <!-- Category cards injected by JS -->
+            </div>
+          </div>
+
+          <!-- Specific Category Detail View (Table) -->
+          <div id="livestockDetailView" style="display:none">
+            <div class="flex-between" style="margin-bottom:24px">
+              <div>
+                <button class="btn btn-ghost btn-sm" style="margin-bottom:12px;padding:4px 8px" onclick="backToCategories()">
+                  <span data-ar>← العودة للأصناف</span><span data-en>← Back to Categories</span>
+                </button>
+                <h3 id="detailCategoryTitle">صنف الحيوان</h3>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="openModal('addAnimalModal')">
+                <span data-ar>+ إضافة مواشي</span><span data-en>+ Add Livestock</span>
+              </button>
+            </div>
+            
+            <div class="dash-section" style="padding:0;overflow:hidden">
+              <div class="table-responsive">
+                <table class="dash-table" style="width:100%;text-align:right;border-collapse:collapse">
+                  <thead style="background:var(--light-green);color:var(--earth)">
+                    <tr>
+                      <th style="padding:16px"><span data-ar>الرقم التسلسلي</span><span data-en>ID Serial</span></th>
+                      <th style="padding:16px"><span data-ar>السلالة</span><span data-en>Breed</span></th>
+                      <th style="padding:16px"><span data-ar>العمر</span><span data-en>Age</span></th>
+                      <th style="padding:16px"><span data-ar>الوزن</span><span data-en>Weight</span></th>
+                      <th style="padding:16px"><span data-ar>السجل الطبي (تطعيمات)</span><span data-en>Medical Record (Vax)</span></th>
+                      <th style="padding:16px"><span data-ar>الحالة</span><span data-en>Status</span></th>
+                      <th style="padding:16px;text-align:center"><span data-ar>إجراء</span><span data-en>Action</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="livestockDetailTable">
+                    <!-- Table rows injected by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: VACCINES (Empty State Demo) -->
+        <div class="dash-view fade-in" id="view-vaccines">
+          <div class="dash-section text-center" style="padding:60px 24px">
+            <div style="font-size:64px;margin-bottom:16px">💉</div>
+            <h3 data-ar>سجل التطعيمات والأدوية</h3><h3 data-en>Vaccines & Medications Log</h3>
+            <p style="margin-bottom:24px" data-ar>قم بإدارة ومتابعة الحالة الصحية وتحديد فترات السحب للقطيع.</p>
+            <p style="margin-bottom:24px" data-en>Manage health status and track withdrawal periods for your herd.</p>
+            <button class="btn btn-primary" data-ar>تسجيل جرعة جديدة</button>
+            <button class="btn btn-primary" data-en>Record New Dose</button>
+          </div>
+        </div>
+
+        <!-- VIEW: MARKETPLACE -->
+        <div class="dash-view fade-in" id="view-market">
+          <div class="dash-section" style="background:var(--light-green);border-color:var(--leaf);margin-bottom:32px">
+            <div class="flex-between items-center flex-wrap gap-md">
+              <div>
+                <h3 style="color:var(--earth);margin-bottom:8px" data-ar>السوق والشفافية</h3><h3 style="color:var(--earth);margin-bottom:8px" data-en>Marketplace & Traceability</h3>
+                <p data-ar>اعرض مواشيك للبيع برمز QR يضمن للمشتري سلامة السجل الطبي للحيوان.</p>
+                <p data-en>List your livestock for sale with a QR code ensuring health record transparency.</p>
+              </div>
+              <button class="btn btn-primary" data-ar>+ عرض للبيع</button>
+              <button class="btn btn-primary" data-en>+ List for Sale</button>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <button class="filter-btn active" onclick="filterMarket('all')" data-ar>الكل</button>
+            <button class="filter-btn active" onclick="filterMarket('all')" data-en>All</button>
+            <button class="filter-btn" onclick="filterMarket('cow')" data-ar>أبقار</button>
+            <button class="filter-btn" onclick="filterMarket('cow')" data-en>Cows</button>
+            <button class="filter-btn" onclick="filterMarket('bull')" data-ar>ثيران</button>
+            <button class="filter-btn" onclick="filterMarket('bull')" data-en>Bulls</button>
+            <button class="filter-btn" onclick="filterMarket('sheep')" data-ar>أغنام</button>
+            <button class="filter-btn" onclick="filterMarket('sheep')" data-en>Sheep</button>
+            <button class="filter-btn" onclick="filterMarket('goat')" data-ar>ماعز</button>
+            <button class="filter-btn" onclick="filterMarket('goat')" data-en>Goats</button>
+          </div>
+
+          <div class="grid-3" id="marketGrid">
+            <!-- Market items injected by JS -->
+          </div>
+        </div>
+
+        <!-- VIEW: SUSTAINABILITY -->
+        <div class="dash-view fade-in" id="view-sustainability">
+          <div class="dash-section">
+            <h3 style="margin-bottom:24px;text-align:center" data-ar>🌱 مؤشرات الاستدامة البيئية</h3><h3 style="margin-bottom:24px;text-align:center" data-en>🌱 Environmental Sustainability Metrics</h3>
+            
+            <div class="sustainability-grid">
+              <div class="gauge-wrap">
+                <div class="gauge">
+                  <svg viewBox="0 0 160 160">
+                    <circle class="bg" cx="80" cy="80" r="70"/>
+                    <circle class="fill" id="waterGauge" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440" style="stroke:#5BA4CF"/>
+                  </svg>
+                  <div class="value" id="waterVal" style="color:#1565C0">0%</div>
+                </div>
+                <h4 data-ar>كفاءة استهلاك المياه</h4><h4 data-en>Water Efficiency</h4>
+                <p class="text-dim" data-ar>توفير 28% هذا الشهر</p><p class="text-dim" data-en>Saved 28% this month</p>
+              </div>
+
+              <div class="eco-score">
+                <h4 data-ar>مؤشر استدامة المزرعة</h4><h4 data-en>Farm Eco Score</h4>
+                <div class="big" id="ecoScoreVal">0</div>
+                <div class="tag tag-green" data-ar>جيد جداً 🌟</div><div class="tag tag-green" data-en>Very Good 🌟</div>
+              </div>
+
+              <div class="gauge-wrap">
+                <div class="gauge">
+                  <svg viewBox="0 0 160 160">
+                    <circle class="bg" cx="80" cy="80" r="70"/>
+                    <circle class="fill" id="wasteGauge" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440" style="stroke:#D4A017"/>
+                  </svg>
+                  <div class="value" id="wasteVal" style="color:#D4A017">0%</div>
+                </div>
+                <h4 data-ar>إعادة تدوير المخلفات</h4><h4 data-en>Waste Recycling</h4>
+                <p class="text-dim" data-ar>تحويل لسماد عضوي</p><p class="text-dim" data-en>Converted to compost</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: AI VET -->
+        <div class="dash-view fade-in" id="view-aivet">
+          <div class="dash-chat-container chat-container">
+            <div class="chat-header">
+              <div class="dot"></div>
+              <div>
+                <div style="font-weight:700;font-size:15px" data-ar>المساعد البيطري الذكي</div>
+                <div style="font-weight:700;font-size:15px" data-en>AI Vet Assistant</div>
+                <div style="font-size:11px;color:var(--lime)" data-ar>متصل الآن</div>
+                <div style="font-size:11px;color:var(--lime)" data-en>Online Now</div>
+              </div>
+            </div>
+            <div class="chat-messages" id="dashChatMessages">
+              <div class="chat-msg bot fade-in" data-ar>مرحباً يا <span class="user-name">مزارع</span>! أنا هنا للمساعدة. صف لي أعراض أي حيوان وسأعطيك تحليلاً فورياً. 🐄</div>
+              <div class="chat-msg bot fade-in" data-en>Hello <span class="user-name">Farmer</span>! I'm here to help. Describe any animal symptoms and I'll give you instant analysis. 🐄</div>
+            </div>
+            <div class="chat-input-area">
+              <input type="text" class="chat-input" id="dashChatInput" placeholder="اكتب الأعراض هنا..." onkeypress="if(event.key==='Enter') sendDashChat()">
+              <button class="chat-send" onclick="sendDashChat()">➤</button>
+            </div>
+          </div>
+          <div class="legal-disclaimer">
+            <strong>⚠️</strong>
+            <div>
+              <span data-ar>هذا التشخيص مبدئي فقط للمساعدة السريعة ولا يغني عن استشارة طبيب بيطري معتمد.</span>
+              <span data-en>This diagnosis is preliminary for quick help and does not replace a certified vet.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: ALERTS (Empty Demo) -->
+        <div class="dash-view fade-in" id="view-alerts">
+          <div class="dash-section">
+            <div class="dash-section-header">
+              <h3 data-ar>🚨 تنبيهات الأمراض الوبائية</h3><h3 data-en>🚨 Epidemic Alerts</h3>
+            </div>
+            <div class="alert-banner critical">
+              <span class="alert-icon">🔴</span>
+              <div>
+                <strong data-ar>تحذير: حمى قلاعية - منطقتك</strong><strong data-en>Warning: FMD - Your Region</strong>
+                <div style="font-size:12px;margin-top:4px" data-ar>تم رصد 3 حالات مؤكدة في مزارع قريبة خلال 48 ساعة. يُنصح بعزل القطيع الجديد.</div>
+                <div style="font-size:12px;margin-top:4px" data-en>3 confirmed cases detected nearby in 48 hours. Isolate new herd.</div>
+              </div>
+            </div>
+            <div class="alert-banner warning" style="margin-top:16px">
+              <span class="alert-icon">🟡</span>
+              <div>
+                <strong data-ar>انتباه: بروسيلا</strong><strong data-en>Attention: Brucellosis</strong>
+                <div style="font-size:12px;margin-top:4px" data-ar>حالة واحدة مشتبه بها تحت المراقبة.</div>
+                <div style="font-size:12px;margin-top:4px" data-en>1 suspected case under surveillance.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- AI Add Animal Modal -->
+  <div class="modal-overlay" id="addAnimalModal">
+    <div class="modal modal-lg">
+      <button class="modal-close" onclick="closeModal('addAnimalModal')">✕</button>
+      <h3 data-ar>إضافة مواشي جديدة</h3><h3 data-en>Add New Livestock</h3>
+      <p style="margin-bottom:20px;color:var(--text-dim)" data-ar>قم بتسجيل بيانات القطيع الجديد هنا</p>
+      <p style="margin-bottom:20px;color:var(--text-dim)" data-en>Register new herd data here</p>
+      
+      <div class="ai-input-tab active">
+        <div class="form-group">
+          <label data-ar>النوع</label><label data-en>Type</label>
+          <select id="animalType" class="form-input">
+            <option value="cow" data-ar>أبقار</option><option value="cow" data-en>Cows</option>
+            <option value="bull" data-ar>ثيران</option><option value="bull" data-en>Bulls</option>
+            <option value="sheep" data-ar>أغنام</option><option value="sheep" data-en>Sheep</option>
+            <option value="goat" data-ar>ماعز</option><option value="goat" data-en>Goats</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-ar>السلالة</label><label data-en>Breed</label>
+          <input type="text" id="animalBreed" class="form-input" placeholder="مثال: نعيمي / e.g. Najdi">
+        </div>
+        <div class="form-group">
+          <label data-ar>العدد</label><label data-en>Count</label>
+          <input type="number" id="animalCount" class="form-input" value="1" min="1">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-ar>العمر التقريبي (بالأشهر)</label><label data-en>Avg Age (months)</label>
+            <input type="number" id="animalAge" class="form-input" value="12">
+          </div>
+          <div class="form-group">
+            <label data-ar>الوزن التقريبي (كغ)</label><label data-en>Avg Weight (kg)</label>
+            <input type="number" id="animalWeight" class="form-input" value="40">
+          </div>
+        </div>
+        
+        <button class="btn btn-primary btn-block" onclick="addManualAnimals()" data-ar>حفظ السجلات يدوياً</button>
+        <button class="btn btn-primary btn-block" onclick="addManualAnimals()" data-en>Save Records Manually</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Animal Modal -->
+  <div class="modal-overlay" id="editAnimalModal">
+    <div class="modal modal-lg">
+      <button class="modal-close" onclick="closeModal('editAnimalModal')">✕</button>
+      <h3 data-ar>تعديل بيانات الماشية</h3><h3 data-en>Edit Livestock Data</h3>
+      <p style="margin-bottom:20px;color:var(--text-dim)" id="editAnimalTitle">ID: ---</p>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label data-ar>العمر (بالأشهر)</label><label data-en>Age (months)</label>
+          <input type="number" id="editAnimalAge" class="form-input">
+        </div>
+        <div class="form-group">
+          <label data-ar>الوزن (كغ)</label><label data-en>Weight (kg)</label>
+          <input type="number" id="editAnimalWeight" class="form-input">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label data-ar>الحالة الصحية</label><label data-en>Health Status</label>
+        <select id="editAnimalStatus" class="form-input">
+          <option value="safe" data-ar>سليم (جاهز للبيع/الذبح)</option><option value="safe" data-en>Safe (Ready for Sale/Slaughter)</option>
+          <option value="unsafe" data-ar>غير سليم (في فترة سحب أو مريض)</option><option value="unsafe" data-en>Unsafe (Withdrawal/Sick)</option>
+        </select>
+      </div>
+
+      <div style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px;">
+        <h4 style="margin-bottom: 12px;" data-ar>إضافة تطعيم جديد</h4><h4 style="margin-bottom: 12px;" data-en>Add New Vaccine</h4>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-ar>اسم التطعيم بالعربية</label><label data-en>Vaccine Name (AR)</label>
+            <input type="text" id="editVaxNameAr" class="form-input" placeholder="مثال: حمى قلاعية">
+          </div>
+          <div class="form-group">
+            <label data-ar>اسم التطعيم بالإنجليزية</label><label data-en>Vaccine Name (EN)</label>
+            <input type="text" id="editVaxNameEn" class="form-input" placeholder="e.g. FMD">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-ar>تاريخ الجرعة الحالية</label><label data-en>Current Dose Date</label>
+            <input type="date" id="editVaxDate" class="form-input">
+          </div>
+          <div class="form-group">
+            <label data-ar>تاريخ الجرعة القادمة</label><label data-en>Next Dose Date</label>
+            <input type="date" id="editVaxNextDate" class="form-input">
+          </div>
+        </div>
+      </div>
+      
+      <button class="btn btn-primary btn-block" style="margin-top: 16px;" onclick="saveAnimalEdit()" data-ar>حفظ التعديلات</button>
+      <button class="btn btn-primary btn-block" style="margin-top: 16px;" onclick="saveAnimalEdit()" data-en>Save Changes</button>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
