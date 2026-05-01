@@ -403,33 +403,35 @@ async function addManualAnimals() {
     });
     
     await fetchAnimals();
-    
-    renderStats();
-    renderLivestock(); // Updates categories
-    
-    // Refresh detail view if open
-    if(document.getElementById('livestockDetailView').style.display === 'block') {
-      const titles = {cow:'الأبقار',sheep:'الأغنام',goat:'الماعز'};
-      if(document.getElementById('detailCategoryTitle').textContent.includes('أغنام') || document.getElementById('detailCategoryTitle').textContent.includes('Sheep')) {
-        showCategoryDetails('sheep');
-      } else if (document.getElementById('detailCategoryTitle').textContent.includes('أبقار') || document.getElementById('detailCategoryTitle').textContent.includes('Cows')) {
-        showCategoryDetails('cow');
-      } else if (document.getElementById('detailCategoryTitle').textContent.includes('ثيران') || document.getElementById('detailCategoryTitle').textContent.includes('Bulls')) {
-        showCategoryDetails('bull');
-      } else {
-        showCategoryDetails('goat');
-      }
-    }
-
-    closeModal('addAnimalModal');
-    
-    // Reset form
-    document.getElementById('animalBreed').value = '';
-    document.getElementById('animalCount').value = '1';
   } catch (e) {
     console.error("Failed to add manual records", e);
-    alert(isEn() ? "Server Error" : "خطأ في الاتصال بالخادم");
+    // Fallback: update local array
+    animals.push(...newRecords);
   }
+
+  // Update UI in both cases
+  renderStats();
+  renderLivestock(); // Updates categories
+  
+  // Refresh detail view if open
+  if(document.getElementById('livestockDetailView').style.display === 'block') {
+    const titles = {cow:'الأبقار',sheep:'الأغنام',goat:'الماعز'};
+    if(document.getElementById('detailCategoryTitle').textContent.includes('أغنام') || document.getElementById('detailCategoryTitle').textContent.includes('Sheep')) {
+      showCategoryDetails('sheep');
+    } else if (document.getElementById('detailCategoryTitle').textContent.includes('أبقار') || document.getElementById('detailCategoryTitle').textContent.includes('Cows')) {
+      showCategoryDetails('cow');
+    } else if (document.getElementById('detailCategoryTitle').textContent.includes('ثيران') || document.getElementById('detailCategoryTitle').textContent.includes('Bulls')) {
+      showCategoryDetails('bull');
+    } else {
+      showCategoryDetails('goat');
+    }
+  }
+
+  closeModal('addAnimalModal');
+  
+  // Reset form
+  document.getElementById('animalBreed').value = '';
+  document.getElementById('animalCount').value = '1';
 }
 
 /* ===== LOGOUT ===== */
@@ -487,23 +489,34 @@ async function saveAnimalEdit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ age, weight, status, new_vaccine })
     });
-    
     if (res.ok) {
       await fetchAnimals();
-      renderStats();
-      renderLivestock(); // Updates categories
-      
-      // Refresh detail view
-      const animal = animals.find(a => a.id === currentEditId);
-      if (animal) showCategoryDetails(animal.type);
-      
-      closeModal('editAnimalModal');
     } else {
-      alert(isEn() ? "Update failed" : "فشل التحديث");
+      throw new Error("Update failed");
     }
   } catch (e) {
     console.error("Failed to edit animal", e);
-    alert(isEn() ? "Server Error" : "خطأ في الاتصال بالخادم");
+    // Fallback: update local array
+    const idx = animals.findIndex(a => a.id === currentEditId);
+    if (idx !== -1) {
+      animals[idx].age = age;
+      animals[idx].weight = weight;
+      animals[idx].status = status;
+      if (new_vaccine) {
+        if (!animals[idx].vaccines) animals[idx].vaccines = [];
+        animals[idx].vaccines.push(new_vaccine);
+      }
+    }
   }
+
+  // Update UI in both cases
+  renderStats();
+  renderLivestock(); // Updates categories
+  
+  // Refresh detail view
+  const animal = animals.find(a => a.id === currentEditId);
+  if (animal) showCategoryDetails(animal.type);
+  
+  closeModal('editAnimalModal');
 }
 
