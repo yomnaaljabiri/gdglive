@@ -38,9 +38,7 @@
         <button class="sidebar-link" data-view="market">
           <span class="link-icon">🛒</span><span data-ar>السوق</span><span data-en>Marketplace</span>
         </button>
-        <button class="sidebar-link" data-view="sustainability">
-          <span class="link-icon">🌱</span><span data-ar>الاستدامة</span><span data-en>Sustainability</span>
-        </button>
+
         <button class="sidebar-link" data-view="aivet">
           <span class="link-icon">🧠</span><span data-ar>المساعد الذكي</span><span data-en>AI Vet</span>
         </button>
@@ -51,7 +49,7 @@
           <span class="link-icon" style="position:relative">🚨<div class="notif-dot"></div></span>
           <span data-ar>الإنذار المبكر</span><span data-en>Early Warnings</span>
         </button>
-        <button class="sidebar-link">
+        <button class="sidebar-link" data-view="education">
           <span class="link-icon">📚</span><span data-ar>مكتبة التوعية</span><span data-en>Education Hub</span>
         </button>
       </nav>
@@ -114,11 +112,7 @@
               <div class="stat-value stat-withdrawal">0</div>
               <div class="stat-label" data-ar>في فترة السحب</div><div class="stat-label" data-en>In Withdrawal</div>
             </div>
-            <div class="stat-card gold-bg">
-              <div class="icon">🌿</div>
-              <div class="stat-value stat-eco">0</div>
-              <div class="stat-label">Eco Score</div>
-            </div>
+
           </div>
 
           <div class="quick-actions">
@@ -228,15 +222,38 @@
           </div>
         </div>
 
-        <!-- VIEW: VACCINES (Empty State Demo) -->
+        <!-- VIEW: VACCINES (Checklist) -->
         <div class="dash-view fade-in" id="view-vaccines">
-          <div class="dash-section text-center" style="padding:60px 24px">
-            <div style="font-size:64px;margin-bottom:16px">💉</div>
-            <h3 data-ar>سجل التطعيمات والأدوية</h3><h3 data-en>Vaccines & Medications Log</h3>
-            <p style="margin-bottom:24px" data-ar>قم بإدارة ومتابعة الحالة الصحية وتحديد فترات السحب للقطيع.</p>
-            <p style="margin-bottom:24px" data-en>Manage health status and track withdrawal periods for your herd.</p>
-            <button class="btn btn-primary" data-ar>تسجيل جرعة جديدة</button>
-            <button class="btn btn-primary" data-en>Record New Dose</button>
+          <div class="dash-section-header flex-between flex-wrap gap-md" style="margin-bottom: 24px;">
+            <div>
+              <h3 data-ar>سجل التطعيمات والأدوية</h3><h3 data-en>Vaccines & Medications Log</h3>
+              <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-ar>تتبع التطعيمات اللازمة لكل ماشية وإدارة الجرعات القادمة.</p>
+              <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-en>Track required vaccines for each animal and manage upcoming doses.</p>
+            </div>
+          </div>
+
+          <div class="filter-group" style="margin-bottom: 24px;">
+            <button class="filter-btn active" onclick="filterVaccines('cow')" data-ar>أبقار</button>
+            <button class="filter-btn active" onclick="filterVaccines('cow')" data-en>Cows</button>
+            <button class="filter-btn" onclick="filterVaccines('bull')" data-ar>ثيران</button>
+            <button class="filter-btn" onclick="filterVaccines('bull')" data-en>Bulls</button>
+            <button class="filter-btn" onclick="filterVaccines('sheep')" data-ar>أغنام</button>
+            <button class="filter-btn" onclick="filterVaccines('sheep')" data-en>Sheep</button>
+            <button class="filter-btn" onclick="filterVaccines('goat')" data-ar>ماعز</button>
+            <button class="filter-btn" onclick="filterVaccines('goat')" data-en>Goats</button>
+          </div>
+
+          <div class="dash-section" style="padding:0;overflow:hidden">
+            <div class="table-responsive">
+              <table class="dash-table" style="width:100%;text-align:right;border-collapse:collapse">
+                <thead style="background:var(--light-green);color:var(--earth)" id="vaccineTableHeader">
+                  <!-- Injected by JS -->
+                </thead>
+                <tbody id="vaccineTableBody">
+                  <!-- Injected by JS -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -272,44 +289,6 @@
           </div>
         </div>
 
-        <!-- VIEW: SUSTAINABILITY -->
-        <div class="dash-view fade-in" id="view-sustainability">
-          <div class="dash-section">
-            <h3 style="margin-bottom:24px;text-align:center" data-ar>🌱 مؤشرات الاستدامة البيئية</h3><h3 style="margin-bottom:24px;text-align:center" data-en>🌱 Environmental Sustainability Metrics</h3>
-            
-            <div class="sustainability-grid">
-              <div class="gauge-wrap">
-                <div class="gauge">
-                  <svg viewBox="0 0 160 160">
-                    <circle class="bg" cx="80" cy="80" r="70"/>
-                    <circle class="fill" id="waterGauge" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440" style="stroke:#5BA4CF"/>
-                  </svg>
-                  <div class="value" id="waterVal" style="color:#1565C0">0%</div>
-                </div>
-                <h4 data-ar>كفاءة استهلاك المياه</h4><h4 data-en>Water Efficiency</h4>
-                <p class="text-dim" data-ar>توفير 28% هذا الشهر</p><p class="text-dim" data-en>Saved 28% this month</p>
-              </div>
-
-              <div class="eco-score">
-                <h4 data-ar>مؤشر استدامة المزرعة</h4><h4 data-en>Farm Eco Score</h4>
-                <div class="big" id="ecoScoreVal">0</div>
-                <div class="tag tag-green" data-ar>جيد جداً 🌟</div><div class="tag tag-green" data-en>Very Good 🌟</div>
-              </div>
-
-              <div class="gauge-wrap">
-                <div class="gauge">
-                  <svg viewBox="0 0 160 160">
-                    <circle class="bg" cx="80" cy="80" r="70"/>
-                    <circle class="fill" id="wasteGauge" cx="80" cy="80" r="70" stroke-dasharray="440" stroke-dashoffset="440" style="stroke:#D4A017"/>
-                  </svg>
-                  <div class="value" id="wasteVal" style="color:#D4A017">0%</div>
-                </div>
-                <h4 data-ar>إعادة تدوير المخلفات</h4><h4 data-en>Waste Recycling</h4>
-                <p class="text-dim" data-ar>تحويل لسماد عضوي</p><p class="text-dim" data-en>Converted to compost</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- VIEW: AI VET -->
         <div class="dash-view fade-in" id="view-aivet">
@@ -362,6 +341,41 @@
                 <div style="font-size:12px;margin-top:4px" data-ar>حالة واحدة مشتبه بها تحت المراقبة.</div>
                 <div style="font-size:12px;margin-top:4px" data-en>1 suspected case under surveillance.</div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW: EDUCATION -->
+        <div class="dash-view fade-in" id="view-education">
+          <div class="dash-section-header">
+            <h3 data-ar>📚 مكتبة التوعية والمقالات</h3><h3 data-en>📚 Education Hub & Articles</h3>
+            <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-ar>تصفح أحدث المقالات والإرشادات البيطرية لتحسين إنتاجية مزرعتك.</p>
+            <p style="color:var(--text-dim);font-size:14px;margin-top:4px" data-en>Browse the latest veterinary guides and articles to improve farm productivity.</p>
+          </div>
+          
+          <div class="grid-3" style="margin-top: 24px;">
+            <div class="card card-hover">
+              <div style="font-size:3rem;text-align:center;margin-bottom:12px;">🐄</div>
+              <h4 style="margin-bottom:8px;" data-ar>أساسيات تغذية الأبقار الحلوب</h4><h4 style="margin-bottom:8px;" data-en>Dairy Cow Nutrition Basics</h4>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-ar>تعرف على أفضل الممارسات في تغذية الأبقار لزيادة إنتاج الحليب وتحسين صحة القطيع.</p>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-en>Learn best practices in feeding cows to maximize milk production and herd health.</p>
+              <button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('cow_nutrition')" data-ar>اقرأ المزيد ←</button><button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('cow_nutrition')" data-en>Read More →</button>
+            </div>
+            
+            <div class="card card-hover">
+              <div style="font-size:3rem;text-align:center;margin-bottom:12px;">🛡️</div>
+              <h4 style="margin-bottom:8px;" data-ar>الوقاية من الحمى القلاعية</h4><h4 style="margin-bottom:8px;" data-en>FMD Prevention Guide</h4>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-ar>دليل شامل للتعرف على أعراض الحمى القلاعية مبكراً وكيفية عزل القطيع وتطعيمه.</p>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-en>Comprehensive guide to identifying FMD early and isolating/vaccinating your herd.</p>
+              <button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('fmd')" data-ar>اقرأ المزيد ←</button><button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('fmd')" data-en>Read More →</button>
+            </div>
+            
+            <div class="card card-hover">
+              <div style="font-size:3rem;text-align:center;margin-bottom:12px;">💧</div>
+              <h4 style="margin-bottom:8px;" data-ar>إدارة مياه الشرب للمواشي</h4><h4 style="margin-bottom:8px;" data-en>Livestock Water Management</h4>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-ar>كيف تحافظ على استدامة المياه ونظافتها في المزرعة لتجنب الأمراض المعوية.</p>
+              <p style="font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:16px;" data-en>How to maintain sustainable and clean water in the farm to prevent diseases.</p>
+              <button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('water')" data-ar>اقرأ المزيد ←</button><button class="btn btn-ghost btn-sm" style="width:100%" onclick="openArticle('water')" data-en>Read More →</button>
             </div>
           </div>
         </div>
@@ -465,6 +479,19 @@
       
       <button class="btn btn-primary btn-block" style="margin-top: 16px;" onclick="saveAnimalEdit()" data-ar>حفظ التعديلات</button>
       <button class="btn btn-primary btn-block" style="margin-top: 16px;" onclick="saveAnimalEdit()" data-en>Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Article Modal -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal modal-lg">
+      <button class="modal-close" onclick="closeModal('articleModal')">✕</button>
+      <h3 id="articleTitle">العنوان</h3>
+      <div style="margin-top: 20px; color: var(--text-color); line-height: 1.8;" id="articleContent">
+        <!-- Content injected by JS -->
+      </div>
+      <button class="btn btn-primary btn-block" style="margin-top: 24px;" onclick="closeModal('articleModal')" data-ar>إغلاق المقال</button>
+      <button class="btn btn-primary btn-block" style="margin-top: 24px;" onclick="closeModal('articleModal')" data-en>Close Article</button>
     </div>
   </div>
 

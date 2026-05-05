@@ -4,6 +4,7 @@ import sqlite3
 import json
 import random
 import os
+import google.generativeai as genai
 
 app = Flask(__name__)
 CORS(app)
@@ -163,6 +164,32 @@ def update_animal(animal_id):
     conn.close()
     
     return jsonify({"success": True, "message": "Animal updated successfully."})
+
+@app.route('/api/aivet', methods=['POST'])
+def ai_vet():
+    data = request.json
+    message = data.get('message', '')
+    language = data.get('language', 'ar')
+
+    api_key = os.environ.get('GEMINI_API_KEY', 'AIzaSyDdDyvHp-VsHD1xMg4Leod0uPTSRHxkxW8')
+    if api_key == 'DUMMY_KEY_REPLACE_ME':
+        return jsonify({
+            "success": False, 
+            "reply": "API Key is missing! Please configure GEMINI_API_KEY in the backend."
+        })
+
+    try:
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        
+        system_instruction = "You are an expert veterinary assistant for livestock. Give short, precise, and helpful advice. Always respond in Arabic if language is 'ar', else respond in English."
+        
+        prompt = f"System Instruction: {system_instruction}\nUser Language: {language}\nUser Message: {message}"
+        response = model.generate_content(prompt)
+        
+        return jsonify({"success": True, "reply": response.text})
+    except Exception as e:
+        return jsonify({"success": False, "reply": f"Error: {str(e)}"}), 500
 
 if __name__ == '__main__':
     init_db()
