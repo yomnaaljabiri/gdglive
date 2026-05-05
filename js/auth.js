@@ -53,7 +53,7 @@ async function handleLogin() {
     const data = await res.json();
     
     if (data.success) {
-      localStorage.setItem('agriroots-session', JSON.stringify(data.user));
+      localStorage.setItem('livestack-session', JSON.stringify(data.user));
       window.location.href = 'dashboard.html';
     } else {
       showAuthError(isEn() ? data.message : 'بيانات الدخول غير صحيحة');
@@ -62,7 +62,7 @@ async function handleLogin() {
     console.error(e);
     // Fallback to demo mode if server is down
     const demoUser = { name: email.split('@')[0], email: email, farm: isEn() ? 'My Farm' : 'مزرعتي' };
-    localStorage.setItem('agriroots-session', JSON.stringify(demoUser));
+    localStorage.setItem('livestack-session', JSON.stringify(demoUser));
     window.location.href = 'dashboard.html';
   }
 }
@@ -87,7 +87,7 @@ async function handleRegister() {
     const data = await res.json();
     
     if (data.success) {
-      localStorage.setItem('agriroots-session', JSON.stringify(data.user));
+      localStorage.setItem('livestack-session', JSON.stringify(data.user));
       window.location.href = 'dashboard.html';
     } else {
       showAuthError(isEn() ? data.message : 'البريد الإلكتروني مسجل مسبقاً');
@@ -96,7 +96,7 @@ async function handleRegister() {
     console.error(e);
     // Fallback to demo mode if server is down
     const demoUser = { name: name, email: email, farm: farm };
-    localStorage.setItem('agriroots-session', JSON.stringify(demoUser));
+    localStorage.setItem('livestack-session', JSON.stringify(demoUser));
     window.location.href = 'dashboard.html';
   }
 }
@@ -116,11 +116,11 @@ function showAuthError(msg) {
 }
 
 function checkSession() {
-  const session = localStorage.getItem('agriroots-session');
+  const session = localStorage.getItem('livestack-session');
   return session ? JSON.parse(session) : null;
 }
 
 function logout() {
-  localStorage.removeItem('agriroots-session');
+  localStorage.removeItem('livestack-session');
   window.location.href = 'login.html';
 }

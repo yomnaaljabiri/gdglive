@@ -9,7 +9,7 @@ import google.generativeai as genai
 app = Flask(__name__)
 CORS(app)
 
-DB_PATH = 'agriroots.db'
+DB_PATH = 'livestack.db'
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)

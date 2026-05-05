@@ -1,6 +1,6 @@
 /* ===== i18n — Language System ===== */
 function initLang() {
-  const saved = localStorage.getItem('agriroots-lang');
+  const saved = localStorage.getItem('livestack-lang');
   if (saved === 'en') {
     document.body.classList.add('en');
   }
@@ -10,7 +10,7 @@ function initLang() {
 function toggleLang() {
   document.body.classList.toggle('en');
   const isEn = document.body.classList.contains('en');
-  localStorage.setItem('agriroots-lang', isEn ? 'en' : 'ar');
+  localStorage.setItem('livestack-lang', isEn ? 'en' : 'ar');
   updateLangUI();
   // Dispatch event for other scripts
   window.dispatchEvent(new CustomEvent('langChange', { detail: { lang: isEn ? 'en' : 'ar' } }));

@@ -421,6 +421,8 @@ body.en .alert-banner.info {
   padding: var(--space-xl);
   width: 90%;
   max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   transform: translateY(20px) scale(0.95);
   transition: transform var(--duration-normal) var(--ease-spring);

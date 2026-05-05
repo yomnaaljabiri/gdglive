@@ -67,7 +67,7 @@ async function fetchAnimals() {
 }
 
 function checkSession() {
-  const s = localStorage.getItem('agriroots-session');
+  const s = localStorage.getItem('livestack-session');
   return s ? JSON.parse(s) : null;
 }
 
@@ -574,7 +574,7 @@ async function addManualAnimals() {
 
 /* ===== LOGOUT ===== */
 function logout() {
-  localStorage.removeItem('agriroots-session');
+  localStorage.removeItem('livestack-session');
   window.location.href = 'login.html';
 }
 
